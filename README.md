@@ -31,7 +31,7 @@ The backend exposes a fully-documented REST API and handles all navigation logic
 | --------- | -------------------------------- |
 | Backend   | Django, Django REST Framework    |
 | Database  | PostgreSQL                       |
-| Dev Tools | Postman, cURL, Docker (optional) |
+| Dev Tools | Postman, cURL, Docker            |
 | Language  | Python                           |
 
 ---
@@ -100,23 +100,30 @@ campus-guide-backend/
 
 * Python 3.9+
 * PostgreSQL
+* [Docker](https://docs.docker.com/get-docker/)
 
-### Setup
+#### **Setup**
 
 ```bash
 git clone https://github.com/your-username/campus-guide-backend.git
 cd campus-guide-backend
-pip install -r requirements.txt
+docker-compose up --build
 ```
 
-Update database credentials in `settings.py`.
+#### 🛠️ Apply Migrations & Initialize Data
+
+In a new terminal:
 
 ```bash
-python manage.py migrate
-python manage.py runserver
+docker-compose exec web python manage.py migrate
+docker-compose exec web python manage.py initialize
 ```
 
-You can now access the API at `http://localhost:8000/api/`.
+This will:
+
+* Build the Docker image
+* Run the Django server inside the container
+* Expose the API on [http://localhost:8000/api/](http://localhost:8000/api/)
 
 ---
 
