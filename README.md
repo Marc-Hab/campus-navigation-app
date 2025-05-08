@@ -76,7 +76,7 @@ Paths are computed **dynamically** using graph traversal algorithms at request t
 * Intuitive endpoint naming
 * Consistent JSON responses and error handling
 
-See [`API_DOCUMENTATION.md`](./backend/api-documentation.md) for full endpoint details.
+See [`API_DOCUMENTATION.md`](./api/api-documentation.md) for full endpoint details.
 
 ---
 
