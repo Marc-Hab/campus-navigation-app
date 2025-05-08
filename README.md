@@ -46,7 +46,7 @@ Hierarchical structure:
 Campus → Buildings → Floors → Rooms → POIs
 ```
 
-Here’s a high-level ERD of the data model: [`ERD diagram`]()
+Here’s a high-level ERD of the data model: [`ERD diagram`](./backend/assets/ERD.png)
 
 
 
