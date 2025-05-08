@@ -83,14 +83,26 @@ See [`API_DOCUMENTATION.md`](./api/api-documentation.md) for full endpoint detai
 ## 🗃️ Folder Structure
 
 ```
-campus-guide-backend/
-├── api/                  # Core app logic: views, models, serializers
-├── static/               # Static files (if needed)
-├── fixtures/             # Sample data (optional)
-├── tests/                # Unit test cases
-├── API_DOCUMENTATION.md  # Full endpoint reference
-├── LICENSE
-└── README.md
+campus-navigation-app/
+├── backend/              # Django project settings
+│   ├── settings.py
+│
+├── app/                  # Main app: views, models, serializers, urls
+│   ├── csv/              # Initialization scripts for database
+│   ├── management/       # Custom Django commands
+│   ├── migrations/       # Django migrations
+│   ├── tests/            # App-specific unit tests
+│   ├── views/            # Route definitions
+│   ├── models.py
+│   ├── serializers.py
+│   └── urls.py
+│
+├── api/ 
+│   ├── API_DOCUMENTATION.md  # Full endpoint reference
+│
+├── manage.py
+├── requirements.txt
+
 ```
 ---
 
@@ -133,12 +145,12 @@ This will:
 
 ```bash
 # Get all buildings
-curl http://localhost:8000/api/buildings/
+curl http://localhost:8000/api/building/all
 
 # Shortest path between two rooms
-curl -X POST http://localhost:8000/api/path/shortestPathToRoom/ \
+curl -X POST http://localhost:8000/api/path/rooms \
      -H "Content-Type: application/json" \
-     -d '{"start_room": "H-521", "destination_room": "H-631"}'
+     -d '{"room1": "H-521", "room2": "H-631"}'
 ```
 
 ### Postman
@@ -152,7 +164,7 @@ Import the included [Postman collection](./postman_collection.json) to explore t
 Run backend tests with:
 
 ```bash
-python manage.py test
+docker-compose exec web pytest
 ```
 
 *(More test coverage can be added for path logic and error cases.)*
