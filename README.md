@@ -105,8 +105,8 @@ campus-guide-backend/
 #### **Setup**
 
 ```bash
-git clone https://github.com/your-username/campus-guide-backend.git
-cd campus-guide-backend
+git clone [https://github.com/your-username/campus-guide-backend.git](https://github.com/Marc-Hab/campus-navigation-app.git)
+cd campus-navigation-app
 docker-compose up --build
 ```
 
