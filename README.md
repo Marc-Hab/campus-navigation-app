@@ -16,10 +16,10 @@ This project provides a RESTful API backend for navigating indoor spaces at Conc
 
 A Django/PostgreSQL backend for a mobile campus navigation app. Inspired by Google Maps, this system enables users to:
 
-* Search for buildings, rooms, and facilities
-* Calculate shortest paths between two points on campus
-* Locate the nearest amenity (e.g. bathroom, elevator)
-* Request accessible routes (for mobility support)
+- Search for buildings, rooms, and facilities
+- Calculate shortest paths between two points on campus
+- Locate the nearest amenity (e.g. bathroom, elevator)
+- Request accessible routes (for mobility support)
 
 The backend exposes a fully-documented REST API and handles all navigation logic, data modeling, and dynamic pathfinding.
 
@@ -27,12 +27,12 @@ The backend exposes a fully-documented REST API and handles all navigation logic
 
 ## 🛠️ Tech Stack
 
-| Layer     | Tech                             |
-| --------- | -------------------------------- |
-| Backend   | Django, Django REST Framework    |
-| Database  | PostgreSQL                       |
-| Dev Tools | Postman, cURL, Docker            |
-| Language  | Python                           |
+| Layer     | Tech                          |
+| --------- | ----------------------------- |
+| Backend   | Django, Django REST Framework |
+| Database  | PostgreSQL                    |
+| Dev Tools | Postman, cURL, Docker         |
+| Language  | Python                        |
 
 ---
 
@@ -48,8 +48,6 @@ Campus → Buildings → Floors → Rooms → POIs
 
 Here’s a high-level ERD of the data model: [`ERD diagram`](./backend/assets/ERD.png)
 
-
-
 > 🛠️ Data is stored in CSV files (`floor.csv`, `room.csv`, `poi.csv`) and imported into the database via:
 
 ```bash
@@ -62,9 +60,9 @@ python manage.py initialize
 
 Supports:
 
-* Room-to-room navigation (e.g. H-521 → H-631)
-* Finding nearest POI (e.g. closest bathroom or elevator)
-* Accessible routing (avoids stairs)
+- Room-to-room navigation (e.g. H-521 → H-631)
+- Finding nearest POI (e.g. closest bathroom or elevator)
+- Accessible routing (avoids stairs)
 
 Paths are computed **dynamically** using graph traversal algorithms at request time.
 
@@ -72,9 +70,9 @@ Paths are computed **dynamically** using graph traversal algorithms at request t
 
 ### 🔐 API Design
 
-* Clean REST structure (GET, POST, etc.)
-* Intuitive endpoint naming
-* Consistent JSON responses and error handling
+- Clean REST structure (GET, POST, etc.)
+- Intuitive endpoint naming
+- Consistent JSON responses and error handling
 
 See [`API_DOCUMENTATION.md`](./api/api-documentation.md) for full endpoint details.
 
@@ -97,22 +95,23 @@ campus-navigation-app/
 │   ├── serializers.py
 │   └── urls.py
 │
-├── api/ 
+├── api/
 │   ├── API_DOCUMENTATION.md  # Full endpoint reference
 │
 ├── manage.py
 ├── requirements.txt
 
 ```
+
 ---
 
 ## 🚀 Running Locally
 
 ### Prerequisites
 
-* Python 3.9+
-* PostgreSQL
-* [Docker](https://docs.docker.com/get-docker/)
+- Python 3.9+
+- PostgreSQL
+- [Docker](https://docs.docker.com/get-docker/)
 
 #### **Setup**
 
@@ -133,9 +132,9 @@ docker-compose exec web python manage.py initialize
 
 This will:
 
-* Build the Docker image
-* Run the Django server inside the container
-* Expose the API on [http://localhost:8000/api/](http://localhost:8000/api/)
+- Build the Docker image
+- Run the Django server inside the container
+- Expose the API on [http://localhost:8000/api/](http://localhost:8000/api/)
 
 ---
 
@@ -155,7 +154,7 @@ curl -X POST http://localhost:8000/api/path/rooms \
 
 ### Postman
 
-Import the included [Postman collection](./postman_collection.json) to explore the API interactively.
+Import the included [Postman collection](./api/Campus%20Guide%20API.postman_collection.json) to explore the API interactively.
 
 ---
 
@@ -167,23 +166,16 @@ Run backend tests with:
 docker-compose exec web pytest
 ```
 
-*(More test coverage can be added for path logic and error cases.)*
+_(More test coverage can be added for path logic and error cases.)_
 
 ---
 
 ## 📌 Limitations
 
-* Some advanced features (e.g. cross-building paths) are not implemented.
+- Some advanced features (e.g. cross-building paths) are not implemented.
 
 ---
+
 ## 🙋‍♂️ About This Repo
 
 This repository focuses exclusively on the **backend**, which was my core responsibility. The frontend was handled by teammates and is not included in this repository.
-
----
-
-## 📃 License
-
-This project is licensed under the MIT License.
-See [`LICENSE`](./LICENSE) for details.
-
