@@ -1,112 +1,181 @@
-# Concordia Campus Navigation App -- version 0.0.1 [![.github/workflows/ci.yml](https://github.com/Soen390-Pathfinders/SOEN390_PathFinders/actions/workflows/ci.yml/badge.svg)](https://github.com/Soen390-Pathfinders/SOEN390_PathFinders/actions/workflows/ci.yml)
+# 🧭 Concordia Campus Guide – Backend API
 
-## Project Overview
+**This repository showcases my work as the backend developer for the Concordia Campus Guide project.**
 
-The **Concordia Campus Guide** is a mobile application designed to help Concordia's students, faculty, and visitors navigate through campus buildings and rooms efficiently. Inspired by Google Maps, this app provides a user-friendly interface for locating your current position on campus and finding the shortest path to any desired location.
-
-This project aims to simplify campus navigation, reduce confusion for newcomers, and improve accessibility for everyone on campus.
+The project aims to assist Concordia students, faculty, and visitors in navigating campus locations, and this repository specifically focuses on the backend architecture, API endpoints, and database management.
 
 ---
 
-## Features
+## 📌 Overview
 
-- **Real-Time Location Tracking**: Pinpoint your current building and room on campus.
-- **Shortest Path Calculation**: Quickly find the most efficient route between two locations.
-- **Search Functionality**: Easily search for rooms, buildings, or facilities.
-- **Interactive Map**: A dynamic map interface for clear and intuitive navigation.
+This project provides a RESTful API backend for navigating indoor spaces at Concordia University. The system allows users to retrieve campus data, search for rooms and buildings, and compute shortest or accessible paths between points — similar to Google Maps but tailored to indoor campus spaces.
 
 ---
 
-## Tech Stack
+## 🔧 What This Project Is
 
-- **Frontend**: React Native – for building a cross-platform mobile application.
-- **Backend**: Django - for handling API requests and backend logic.
-- **Database**: PostgreSQL – ensuring data consistency and reliability.
+A Django/PostgreSQL backend for a mobile campus navigation app. Inspired by Google Maps, this system enables users to:
+
+- Search for buildings, rooms, and facilities
+- Calculate shortest paths between two points on campus
+- Locate the nearest amenity (e.g. bathroom, elevator)
+- Request accessible routes (for mobility support)
+
+The backend exposes a fully-documented REST API and handles all navigation logic, data modeling, and dynamic pathfinding.
 
 ---
 
-## Installation
+## 🛠️ Tech Stack
+
+| Layer     | Tech                          |
+| --------- | ----------------------------- |
+| Backend   | Django, Django REST Framework |
+| Database  | PostgreSQL                    |
+| Dev Tools | Postman, cURL, Docker         |
+| Language  | Python                        |
+
+---
+
+## 🔍 Features
+
+### 📊 Data Model
+
+Hierarchical structure:
+
+```
+Campus → Buildings → Floors → Rooms → POIs
+```
+
+Here’s a high-level ERD of the data model: [`ERD diagram`](./backend/assets/ERD.png)
+
+> 🛠️ Data is stored in CSV files (`floor.csv`, `room.csv`, `poi.csv`) and imported into the database via:
+
+```bash
+python manage.py initialize
+```
+
+---
+
+### 🧠 Pathfinding
+
+Supports:
+
+- Room-to-room navigation (e.g. H-521 → H-631)
+- Finding nearest POI (e.g. closest bathroom or elevator)
+- Accessible routing (avoids stairs)
+
+Paths are computed **dynamically** using graph traversal algorithms at request time.
+
+---
+
+### 🔐 API Design
+
+- Clean REST structure (GET, POST, etc.)
+- Intuitive endpoint naming
+- Consistent JSON responses and error handling
+
+See [`API_DOCUMENTATION.md`](./api/api-documentation.md) for full endpoint details.
+
+---
+
+## 🗃️ Folder Structure
+
+```
+campus-navigation-app/
+├── backend/              # Django project settings
+│   ├── settings.py
+│
+├── app/                  # Main app: views, models, serializers, urls
+│   ├── csv/              # Initialization scripts for database
+│   ├── management/       # Custom Django commands
+│   ├── migrations/       # Django migrations
+│   ├── tests/            # App-specific unit tests
+│   ├── views/            # Route definitions
+│   ├── models.py
+│   ├── serializers.py
+│   └── urls.py
+│
+├── api/
+│   ├── API_DOCUMENTATION.md  # Full endpoint reference
+│
+├── manage.py
+├── requirements.txt
+
+```
+
+---
+
+## 🚀 Running Locally
 
 ### Prerequisites
 
-Before you can run the project, make sure you have installed **Docker**, PostgreSQL and all required dependencies
+- Python 3.9+
+- PostgreSQL
+- [Docker](https://docs.docker.com/get-docker/)
 
-### Step 1: Clone the Repository
-
-You can use the following command to clone the repo:
-
-```bash
-git clone https://github.com/Soen390-Pathfinders/SOEN390_PathFinders.git
-```
-
-### Step 2: Run the Backend
-
-#### Step 2.1: Windows Setup
-
-If you are using Windows, you first need to follow the instructions provided in this 👉 [trello card](https://trello.com/c/wga7XPGq/12-bug-3-pytest-fail-due-to-docker).
-
-#### Step 2.2: Building the Docker Container
-
-Once Docker is launched on your device, type the following command in the project's root directory:
+#### **Setup**
 
 ```bash
-docker compose up --build
+git clone https://github.com/Marc-Hab/campus-navigation-app.git
+cd campus-navigation-app
+docker-compose up --build
 ```
 
-#### Step 2.3: Navigate to the Backend Container
+#### 🛠️ Apply Migrations & Initialize Data
 
-Inside the Docker application, click on the backend_container and then navigate to the Exec tab.
-
-#### Step 2.4: Intialize the Database
-
-Now, write the `python manage.py migrate` command to create the tables in the database.
-Then, write the `python manage.py initialize` command to populate the database.
-(Note: Currently the information available might be limited)
-
-#### Step 2.5: Clear the database
-
-If you want to clear the database, write in the project's root directory:
+In a new terminal:
 
 ```bash
-docker compose down -v
+docker-compose exec web python manage.py migrate
+docker-compose exec web python manage.py initialize
 ```
 
-and then start from the beginning of step 2 to build the database.
+This will:
 
-### Step 3: Start the Frontend
-
-Navigate to the frontend folder and type the following command:
-
-```bash
-npm start
-```
-
-The final step should launch the app on a mobile device emulator.
-
-
-### Step 4: Connection from Frontend to Backend
-Assuming Windows OS:
-1. Open your command prompt and type ipconfig, take note of your Wireless LAN IPv4 Address (Should look something like 192.168.xxx.xxx)
-2. Modify /frontend/api/api.js variable API_BASE_URL from "http://localhost:8000/api" to "http://{YOUR_IPv4_ADDRESS}:8000/api", something like "http://192.168.0.126:8000/api"
-3. Modify /backend/backend/settings.py variable ALLOWED_HOSTS = [] to ALLOWED_HOSTS = ["*"]
-4. Rebuild docker container if one is already active (Docker compose down -v  /// Docker compose up --build)
-
-At this point it should work if you are using mobile data, if you are using WIFI:
-
-5. Open Windows Defender Firewall
-6. Click advanced settings on the left
-7. Click inbound rules tab on the left
-8. Click New rule on the right
-9. Choose TCP --> Specific local ports : 8000 --> Allow --> Next --> Name it whatever you want (I named it SOEN390DockerConnection)
-
-
+- Build the Docker image
+- Run the Django server inside the container
+- Expose the API on [http://localhost:8000/api/](http://localhost:8000/api/)
 
 ---
 
-## Team Roles
+## 🧪 Try It
 
-- **Team Leader**: Haifa Janoudi
-- **Frontend Development**: Dominique Proulx, Ryan Rebbas, Aman Singh, Hawa-Afnane Said, Hazem Mohamed
-- **Backend Development**: Mathieu Phan, Marchelino Habchi, Zineb Alaoui Aziz, Alexandro Coccimiglio
+### Example Requests
+
+```bash
+# Get all buildings
+curl http://localhost:8000/api/building/all
+
+# Shortest path between two rooms
+curl -X POST http://localhost:8000/api/path/rooms \
+     -H "Content-Type: application/json" \
+     -d '{"room1": "H-521", "room2": "H-631"}'
+```
+
+### Postman
+
+Import the included [Postman collection](./api/Campus%20Guide%20API.postman_collection.json) to explore the API interactively.
 
 ---
+
+## ✅ Tests
+
+Run backend tests with:
+
+```bash
+docker-compose exec web pytest
+```
+
+_(More test coverage can be added for path logic and error cases.)_
+
+---
+
+## 📌 Limitations
+
+- Some advanced features (e.g. cross-building paths) are not implemented.
+
+---
+
+## 🙋‍♂️ About This Repo
+
+This repository focuses exclusively on the **backend**, which was my core responsibility. The frontend was handled by teammates and is not included in this repository.

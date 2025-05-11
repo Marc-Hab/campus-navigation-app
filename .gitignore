@@ -1,6 +1,3 @@
 #Ignore the README
 .env
 README.md
-node_modules/
-frontend/app/constants.tsx
-frontend/coverage

@@ -1,0 +1,74 @@
+{
+	"info": {
+		"_postman_id": "0ef42a44-76f7-4103-b007-91dbb95dbf42",
+		"name": "Campus Guide API",
+		"description": "This Postman collection contains example requests for key Campus Guide API endpoints, including building retrieval, shortest path calculation, and amenity lookups. Use it to quickly test and explore the main features of the API.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38814479"
+	},
+	"item": [
+		{
+			"name": "Get All Buildings",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"description": "Retrieves a list of all buildings available in the system.  \n**Use this to**: Display a full list of buildings for users to browse or select from."
+			},
+			"response": []
+		},
+		{
+			"name": "Get a Specific Building",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"description": "Retrieves detailed information about a single building by its ID or code.  \n**Use this to**: View building name, campus, and other metadata."
+			},
+			"response": []
+		},
+		{
+			"name": "Create a New Building",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"description": "Adds a new building to the system using provided details in the request body.  \n**Use this to**: Expand the campus directory by adding buildings."
+			},
+			"response": []
+		},
+		{
+			"name": "Update Building Information",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"description": "Updates the name, structure, or other details of an existing building.  \n**Use this to**: Correct or modify building data."
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Building",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"description": "Removes a building and its associated data from the system.  \n**Use this to**: Clean up test data or remove outdated entries."
+			},
+			"response": []
+		},
+		{
+			"name": "Shortest Path Between Rooms",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"description": "Calculates and returns the shortest navigable path between two rooms across floors.  \n**Use this to**: Help users find their way around campus efficiently."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Amenities on a Floor",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"description": "Returns all amenities (e.g., bathrooms, elevators, vending machines) located on a given floor.  \n**Use this to**: Display helpful resources near users’ current location."
+			},
+			"response": []
+		}
+	]
+}
